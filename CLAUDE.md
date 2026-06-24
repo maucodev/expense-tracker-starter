@@ -18,13 +18,14 @@ npm run preview   # preview production build
 
 ## Architecture
 
-Single-page React app with no routing, no state management library, and no backend. All state lives in `App.jsx` via `useState`.
+Single-page React app with no routing, no state management library, and no backend. The only shared state is the `transactions` array, which lives in `App.jsx` and is passed down as props.
 
-- `src/App.jsx` — entire app: state, filtering logic, form handling, and JSX
-- `src/App.css` — component styles scoped to `.app` and its children
+- `src/App.jsx` — root component; owns the `transactions` state and passes it to children
+- `src/Summary.jsx` — receives `transactions`, computes `totalIncome`, `totalExpenses`, and `balance` internally
+- `src/TransactionForm.jsx` — owns its own form state; calls the `onAdd(transaction)` prop when submitted
+- `src/TransactionList.jsx` — receives `transactions`, owns its own filter state (type and category)
+- `src/App.css` — all component styles
 - `src/index.css` — global reset and body font
 - `src/main.jsx` — React root mount
 
-## Known Bug
-
-Transaction `amount` values in the seed data are strings (`"5000"`, `"1200"`, etc.). The `reduce` calls that compute `totalIncome`, `totalExpenses`, and `balance` use `sum + t.amount`, which does string concatenation instead of numeric addition. Fix by parsing amounts to numbers in the reduce or at the point of storage.
+The `categories` constant is duplicated in `TransactionForm.jsx` and `TransactionList.jsx`; it could be extracted to a shared file if it grows.
