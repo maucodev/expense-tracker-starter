@@ -1,129 +1,133 @@
 /* ── App shell ─────────────────────────────────────────────── */
 
 .app {
-  max-width: 760px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 56px 24px 96px;
+  padding: 48px 24px 96px;
 }
 
 /* ── Header ────────────────────────────────────────────────── */
 
 h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 38px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: #0A0A0A;
-  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 4px;
 }
 
 .subtitle {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
-  color: #888;
-  margin-bottom: 40px;
+  color: var(--fg-muted);
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 /* ── Summary strip ─────────────────────────────────────────── */
 
 .summary {
   display: flex;
-  gap: 0;
-  border-top: 2px solid #0A0A0A;
-  border-bottom: 1px solid #E0E0E0;
-  padding: 20px 0 24px;
-  margin-bottom: 52px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 
 .summary-card {
-  flex: 1;
-  padding: 0 28px;
-  border: none;
-  background: none;
-  border-right: 1px solid #E0E0E0;
-}
-
-.summary-card:first-child {
-  padding-left: 0;
-}
-
-.summary-card:last-child {
-  border-right: none;
+  flex: 1 1 140px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--canvas-subtle);
 }
 
 .summary-card h3 {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted);
   margin-bottom: 10px;
 }
 
 /* ── Amounts — shared base ─────────────────────────────────── */
 
 .income-amount {
-  font-family: 'DM Mono', monospace;
-  color: #1A7F4B;
+  font-family: var(--font-mono);
+  color: var(--success);
 }
 
 .expense-amount {
-  font-family: 'DM Mono', monospace;
-  color: #CC2A2A;
+  font-family: var(--font-mono);
+  color: var(--danger);
 }
 
 .balance-amount {
-  font-family: 'DM Mono', monospace;
-  color: #0A0A0A;
+  font-family: var(--font-mono);
+  color: var(--fg);
 }
 
 /* Large variant inside summary cards */
 .summary-card .income-amount,
 .summary-card .expense-amount,
 .summary-card .balance-amount {
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 500;
   line-height: 1;
 }
 
-/* ── Section eyebrows (h2) ─────────────────────────────────── */
+/* ── Panels (chart / form / transactions) ─────────────────── */
 
-.spending-chart h2,
-.add-transaction h2,
-.transactions h2 {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
-  margin-bottom: 20px;
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--canvas-subtle);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--canvas) 40%, transparent);
+}
+
+.panel-header h2 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: 0;
+}
+
+.panel-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-subtle);
+  white-space: nowrap;
+}
+
+.panel-body {
+  padding: 16px;
+}
+
+.table-scroll {
+  overflow-x: auto;
 }
 
 /* ── Spending chart ────────────────────────────────────────── */
-
-.spending-chart {
-  border: none;
-  background: none;
-  padding: 0;
-  margin-bottom: 52px;
-}
 
 .spending-chart-inner {
   width: 100%;
 }
 
 /* ── Add transaction ───────────────────────────────────────── */
-
-.add-transaction {
-  border: none;
-  background: none;
-  padding: 0;
-  border-top: 1px solid #E0E0E0;
-  padding-top: 40px;
-  margin-bottom: 52px;
-}
 
 form {
   display: flex;
@@ -133,22 +137,27 @@ form {
 
 form input,
 form select {
-  padding: 9px 12px;
-  border: 1px solid #C8C8C8;
-  border-radius: 0;
-  font-family: 'DM Sans', sans-serif;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-sans);
   font-size: 14px;
-  background: #fff;
-  color: #0A0A0A;
+  background: var(--canvas-inset);
+  color: var(--fg);
   outline: none;
   appearance: none;
   -webkit-appearance: none;
-  transition: border-color 0.12s;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+form input::placeholder {
+  color: var(--fg-subtle);
 }
 
 form input:focus,
 form select:focus {
-  border-color: #0A0A0A;
+  border-color: var(--accent-emphasis);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 form input[type="text"] {
@@ -165,117 +174,157 @@ form select {
   flex: 1;
   min-width: 120px;
   padding-right: 32px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%230A0A0A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
 
 form button {
-  padding: 9px 24px;
-  background: #0A0A0A;
+  padding: 8px 20px;
+  background: var(--success-emphasis);
   color: #fff;
-  border: none;
-  border-radius: 0;
+  border: 1px solid color-mix(in srgb, #fff 15%, var(--success-emphasis));
+  border-radius: 6px;
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: opacity 0.12s;
+  transition: background 0.12s;
 }
 
 form button:hover {
-  opacity: 0.75;
+  background: var(--success);
 }
 
-/* ── Transactions ──────────────────────────────────────────── */
-
-.transactions {
-  border-top: 1px solid #E0E0E0;
-  padding-top: 40px;
-  margin-bottom: 0;
-}
+/* ── Transactions (diff view) ─────────────────────────────── */
 
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .filters select {
-  padding: 7px 30px 7px 10px;
-  border: 1px solid #C8C8C8;
-  border-radius: 0;
-  font-family: 'DM Sans', sans-serif;
+  padding: 6px 30px 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-sans);
   font-size: 13px;
-  background: #fff;
-  color: #0A0A0A;
+  background: var(--canvas-inset);
+  color: var(--fg);
   outline: none;
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%230A0A0A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   transition: border-color 0.12s;
 }
 
 .filters select:focus {
-  border-color: #0A0A0A;
+  border-color: var(--accent-emphasis);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 table {
   width: 100%;
+  min-width: 560px;
   border-collapse: collapse;
 }
 
-thead {
-  background: none;
+th {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 0 10px 10px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 
-th {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
-  padding: 0 0 12px 0;
-  text-align: left;
-  border-bottom: 2px solid #0A0A0A;
+th:first-child,
+td:first-child {
+  padding-left: 12px;
 }
 
 td {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
-  color: #0A0A0A;
-  padding: 13px 0;
-  border-bottom: 1px solid #F0F0F0;
+  color: var(--fg);
+  padding: 10px;
+  border-bottom: 1px solid var(--border-muted);
   vertical-align: middle;
 }
 
 td.income-amount,
 td.expense-amount {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
 }
 
-tr:hover td {
-  background: #F8F8F8;
+td.date-cell {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+tr.row-add {
+  background: color-mix(in srgb, var(--success) 8%, transparent);
+  box-shadow: inset 3px 0 0 var(--success);
+}
+
+tr.row-remove {
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+
+tr:hover {
+  filter: brightness(1.2);
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--badge-color);
+  background: color-mix(in srgb, var(--badge-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--badge-color) 40%, transparent);
+}
+
+th:last-child,
+td:last-child {
+  text-align: center;
 }
 
 .delete-btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  color: #C0C0C0;
-  background: none;
-  border: none;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
   padding: 0;
-  letter-spacing: 0.02em;
-  transition: color 0.12s;
+  background: var(--danger-emphasis);
+  color: #fff;
+  border: 1px solid color-mix(in srgb, #fff 15%, var(--danger-emphasis));
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s;
 }
 
 .delete-btn:hover {
-  color: #CC2A2A;
+  background: var(--danger);
+}
+
+.delete-btn svg {
+  width: 14px;
+  height: 14px;
 }

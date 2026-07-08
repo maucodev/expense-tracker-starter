@@ -1,16 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer } from 'recharts'
+import { COLORS } from './categoryColors'
 
-const COLORS = {
-  food: '#ef4444',
-  housing: '#3b82f6',
-  utilities: '#f59e0b',
-  transport: '#10b981',
-  entertainment: '#8b5cf6',
-  salary: '#06b6d4',
-  other: '#6b7280',
-}
-
-const TICK_STYLE = { fontSize: 12, fontFamily: "'DM Sans', sans-serif", fill: '#888' }
+const TICK_STYLE = { fontSize: 12, fontFamily: 'var(--font-sans)', fill: '#8b949e' }
 
 function SpendingChart({ transactions }) {
   const expenses = transactions.filter(t => t.type === 'expense')
@@ -25,35 +16,44 @@ function SpendingChart({ transactions }) {
   if (data.length === 0) return null
 
   return (
-    <div className="spending-chart">
-      <h2>Spending by Category</h2>
-      <div className="spending-chart-inner">
-        <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={data} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
-            <XAxis dataKey="name" tick={TICK_STYLE} axisLine={false} tickLine={false} />
-            <YAxis
-              tickFormatter={(v) => `$${v}`}
-              tick={TICK_STYLE}
-              axisLine={false}
-              tickLine={false}
-              width={56}
-            />
-            <Tooltip
-              formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']}
-              contentStyle={{
-                border: '1px solid #E0E0E0',
-                borderRadius: 0,
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-              }}
-            />
-            <Bar dataKey="value" isAnimationActive={false} radius={0}>
-              {data.map((entry) => (
-                <Cell key={entry.name} fill={COLORS[entry.name] || COLORS.other} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+    <div className="panel spending-chart">
+      <div className="panel-header">
+        <h2>Spending by category</h2>
+      </div>
+      <div className="panel-body">
+        <div className="spending-chart-inner">
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart data={data} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
+              <XAxis dataKey="name" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis
+                tickFormatter={(v) => `$${v}`}
+                tick={TICK_STYLE}
+                axisLine={false}
+                tickLine={false}
+                width={56}
+              />
+              <Tooltip
+                cursor={{ fill: 'rgba(139, 148, 158, 0.08)' }}
+                formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']}
+                contentStyle={{
+                  background: '#161b22',
+                  border: '1px solid #30363d',
+                  borderRadius: 6,
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 13,
+                  color: '#e6edf3',
+                }}
+                labelStyle={{ color: '#e6edf3' }}
+                itemStyle={{ color: '#e6edf3' }}
+              />
+              <Bar dataKey="value" isAnimationActive={false} radius={[3, 3, 0, 0]}>
+                {data.map((entry) => (
+                  <Cell key={entry.name} fill={COLORS[entry.name] || COLORS.other} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   )
