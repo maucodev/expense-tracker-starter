@@ -10,10 +10,10 @@ function TransactionForm({ onAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!description || !amount) return;
+    if (!description || !(parseFloat(amount) > 0)) return;
 
     onAdd({
-      id: Date.now(),
+      id: crypto.randomUUID(),
       description,
       amount: parseFloat(amount),
       type,
@@ -44,6 +44,8 @@ function TransactionForm({ onAdd }) {
             type="number"
             placeholder="Amount"
             value={amount}
+            min="0.01"
+            step="0.01"
             onChange={(e) => setAmount(e.target.value)}
           />
           <select value={type} onChange={(e) => setType(e.target.value)}>
